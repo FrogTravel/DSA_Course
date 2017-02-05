@@ -9,18 +9,24 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
- * Created by ekaterina on 05.02.17.
+ * @author ekaterina
  */
 public class MainShunting {
-    LinkedQueue<String> linkedQueue = new LinkedQueue<>();
-    LinkedStack<String> linkedStack = new LinkedStack<>();
-    LinkedStack<Double> linkedStackRPN = new LinkedStack<>();
+    private LinkedQueue<String> linkedQueue = new LinkedQueue<>();
+    private LinkedStack<String> linkedStack = new LinkedStack<>();
+    private LinkedStack<Double> linkedStackRPN = new LinkedStack<>();
 
     public static void main(String[] args) {
         MainShunting mainShunting = new MainShunting();
         mainShunting.go();
     }
 
+    /**
+     * Split whole line to several tokens
+     * Rewrite it to right order
+     * Then count it
+     * Write it to file
+     */
     public void go() {
         StringTokenizer string = new StringTokenizer(readExpression(), " ()+-*/", true);
 
@@ -31,18 +37,28 @@ public class MainShunting {
         writeAnswer();
     }
 
+    /**
+     * Create writer
+     * Write to file in right order
+     * Close stream
+     */
     private void writeAnswer() {
         PrintWriter printWriter = null;
-        try{
+        try {
             printWriter = new PrintWriter(new File("output.txt"));
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        printWriter.write(String.valueOf(linkedStackRPN.pop()));
+        printWriter.write(String.format("%.2f", linkedStackRPN.pop()).replace(",", "."));
         printWriter.close();
     }
 
+    /**
+     * Simple converter from string tokenizer to array
+     * @param string that we want to convert
+     * @return result line
+     */
     private String[] toArray(StringTokenizer string) {
         String[] result = new String[string.countTokens()];
         int counter = 0;
@@ -53,6 +69,9 @@ public class MainShunting {
         return result;
     }
 
+    /**
+     * @return expression in human-readable form from input.txt file
+     */
     private String readExpression() {
         Scanner scanner = null;
         try {
@@ -64,6 +83,11 @@ public class MainShunting {
         return scanner.nextLine();
     }
 
+    /**
+     * Rewrite expression to right format using shuntingYard algorithm
+     * https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+     * @param tokens from original expression
+     */
     private void shuntingYard(String[] tokens) {
         for (String token : tokens) {
 
@@ -78,13 +102,12 @@ public class MainShunting {
                     break;
                 case "+":
                 case "-":
-
-                    if((!linkedStack.isEmpty()) && ((linkedStack.top().equals("*"))||(linkedStack.top().equals("/")))){
-                        while(!linkedStack.isEmpty() && ((linkedStack.top().equals("*") || linkedStack.top().equals("/")))) {
+                    if ((!linkedStack.isEmpty()) && ((linkedStack.top().equals("*")) || (linkedStack.top().equals("/")))) {
+                        while (!linkedStack.isEmpty() && ((linkedStack.top().equals("*") || linkedStack.top().equals("/")))) {
                             linkedQueue.enqueue(linkedStack.pop());
                         }
                         linkedStack.push(token);
-                    }else{
+                    } else {
                         linkedStack.push(token);
                     }
                     break;
@@ -111,21 +134,9 @@ public class MainShunting {
         }
     }
 
-    private void showStack() {
-        LinkedStack<String> temp = new LinkedStack<>();
-        temp = linkedStack;
-        while (!temp.isEmpty()){
-            System.out.print(temp.pop() + " ");
-        }
-    }
-
-    private void showQueue(){
-        LinkedQueue<String> queue = linkedQueue;
-        while (!queue.isEmpty()){
-            System.out.print(queue.dequeue() + " ");
-        }
-    }
-
+    /**
+     * Count expression from queue
+     */
     public void RPN() {
         String token;
         double a, b;
@@ -161,6 +172,10 @@ public class MainShunting {
         }
     }
 
+    /**
+     * @param str that we want to check
+     * @return if str numeric type or not
+     */
     public boolean isNumeric(String str) {
         try {
             double d = Double.parseDouble(str);
