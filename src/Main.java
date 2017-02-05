@@ -12,7 +12,7 @@ public class Main {
 
     }
 
-    public void go(){
+    public void go() {
         NaiveSet naiveSet = new NaiveSet();
         Scanner scanner = null;
         try {
@@ -22,10 +22,10 @@ public class Main {
         }
 
         int[] numbers = readIntegerArray(scanner); //read next line as number array
-        if(numbers[0] != -1) // if line was empty, by condition it could be only >=0
-        for (int value:numbers) {
-            naiveSet.add(value);
-        }
+        if (numbers[0] != -1) // if line was empty, by condition it could be only >=0
+            for (int value : numbers) {
+                naiveSet.add(value);
+            }
 
         System.out.println();
 
@@ -40,10 +40,10 @@ public class Main {
             e.printStackTrace();
         }
 
-        if(numbers[0] != -1)// if line was empty
-        for (int value:numbers) {
-            printWriter.print(naiveSet.isContain(value) + " ");
-        }
+        if (numbers[0] != -1)// if line was empty
+            for (int value : numbers) {
+                printWriter.print(naiveSet.isContain(value) + " ");
+            }
         printWriter.close();
     }
 
@@ -51,12 +51,13 @@ public class Main {
      * Transform line in file to int array
      * Reads line then split it to string array or set -1 if line empty
      * Transform line to array
+     *
      * @return result array
      */
-    private int[] readIntegerArray(Scanner scanner){
+    private int[] readIntegerArray(Scanner scanner) {
         String fullLine = scanner.nextLine();
         String[] temp;
-        if(!fullLine.equals(""))
+        if (!fullLine.equals(""))
             temp = fullLine.split(" ");
         else {
             temp = new String[1];

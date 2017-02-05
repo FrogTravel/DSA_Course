@@ -4,7 +4,8 @@ import java.util.List;
  * Created by ekaterina on 31.01.17.
  */
 public class ArrayList<E>{
-    E[] data;
+    private E[] data;
+    private int size = 0;
 
 
     public ArrayList(){
@@ -12,7 +13,7 @@ public class ArrayList<E>{
     }
 
     public int size(){
-        return data.length;
+        return size;
     }
 
     public E get(int index){
@@ -28,6 +29,7 @@ public class ArrayList<E>{
             for (int i = 0; i < data.length; i++) {
                 if(data[i] == null){
                     data[i] = value;
+                    size++;
                     break;
                 }
             }
@@ -35,6 +37,7 @@ public class ArrayList<E>{
             extend();
             add(value);
         }
+
     }
 
     public void remove(E value){
@@ -48,6 +51,7 @@ public class ArrayList<E>{
                 break;
             }
         }
+        size--;
     }
 
     public boolean isContain(E value){
