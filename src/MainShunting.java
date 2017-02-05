@@ -1,7 +1,3 @@
-package ShuntingYard;
-
-import com.sun.deploy.util.StringUtils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -56,6 +52,7 @@ public class MainShunting {
 
     /**
      * Simple converter from string tokenizer to array
+     *
      * @param string that we want to convert
      * @return result line
      */
@@ -86,6 +83,7 @@ public class MainShunting {
     /**
      * Rewrite expression to right format using shuntingYard algorithm
      * https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+     *
      * @param tokens from original expression
      */
     private void shuntingYard(String[] tokens) {

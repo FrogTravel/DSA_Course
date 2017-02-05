@@ -1,7 +1,5 @@
-package ShuntingYard;
-
 /**
- * Created by ekaterina on 04.02.17.
+ * @author ekaterina
  */
 class Node<E> {
     private E element;
@@ -12,14 +10,23 @@ class Node<E> {
         this.nextElement = node;
     }
 
+    /**
+     * @return element of current node
+     */
     public E getElement() {
         return element;
     }
 
+    /**
+     * @return node to what current node link to
+     */
     public Node<E> getNext() {
         return nextElement;
     }
 
+    /**
+     * @param element that will be set, so current node will like to that node
+     */
     public void setNextElement(Node<E> element) {
         nextElement = element;
     }
